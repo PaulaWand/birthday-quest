@@ -1,4 +1,3 @@
 // Birthday Quest — public client configuration.
-// After deploying Google Apps Script, paste ONLY the public web-app URL below.
-// Do not put the recipient e-mail address or any private secret in this file.
-window.BQ_MAIL_ENDPOINT = '';
+// Publiczny endpoint web app. Nie zawiera adresu odbiorcy ani sekretów.
+window.BQ_MAIL_ENDPOINT = 'https:' + '//' + 'script.google.com' + '/macros/s/' + 'AKfycbzmSxTFfv6P-AMhddXvOhp4TX-RfMRvJTQmx_4X6PnzhrGeHPEpdre1h28mDJszupD2yA' + '/exec';
