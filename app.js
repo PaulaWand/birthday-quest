@@ -1,0 +1,1 @@
+document.getElementById('startBtn').onclick=function(){document.querySelector('[data-step="0"]').classList.remove('active');document.querySelector('[data-step="1"]').classList.add('active');};
