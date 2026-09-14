@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0b0f1a">
+  <title>Birthday Quest — Paula & Hania</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="app-shell">
+    <div id="testBanner" class="test-banner hidden">🧪 TRYB TESTOWY — nic nie zostanie wysłane mailem.</div>
+    <header class="topbar">
+      <div>
+        <div class="brand">PAULA &amp; HANIA</div>
+        <div class="event-meta">24 października 2026 • przed zachodem słońca • Targowisko</div>
+      </div>
+      <div id="stepLabel" class="step-label"></div>
+    </header>
+
+    <div id="progress" class="progress hidden" aria-label="Postęp"></div>
+
+    <section class="panel">
+      <section class="step active" data-step="0">
+        <div class="hero">
+          <div class="eyebrow">BIRTHDAY QUEST</div>
+          <h1>NEW GAME</h1>
+          <p>Zostałeś wybrany do udziału w specjalnej wyprawie. Zanim przygoda się rozpocznie, stwórz swojego bohatera.</p>
+          <div class="hero-tags">
+            <span>POZIOM ZAGROŻENIA: NIEZNANY</span>
+            <span>LOOT: PRAWDOPODOBNY</span>
+          </div>
+          <button class="btn primary" id="startBtn">STWÓRZ POSTAĆ</button>
+          <p class="micro">Przygotuj pomysł na przebranie i odrobinę kreatywności.</p>
+        </div>
+      </section>
+
+      <section class="step" data-step="1">
+        <h2>PLAYER IDENTIFIED</h2>
+        <p>Najpierw ustalmy, kto dołącza do drużyny.</p>
+
+        <label for="realName">Twoje imię</label>
+        <input id="realName" maxlength="40" autocomplete="name" placeholder="np. Kasia">
+
+        <label for="cosplay">Za kogo będziesz przebrany/a?</label>
+        <input id="cosplay" maxlength="70" placeholder="np. Kratos">
+
+        <label for="universe">Z jakiej gry / świata pochodzi?</label>
+        <input id="universe" maxlength="80" placeholder="np. God of War">
+
+        <label class="check-row">
+          <input id="inspiredOnly" type="checkbox">
+          <span>Moje przebranie nie jest konkretną postacią, ale jest inspirowane grami.</span>
+        </label>
+
+        <div class="info-box">🔒 Twój wybór nie będzie publicznie widoczny przed imprezą.</div>
+        <div id="step1Error" class="error"></div>
+        <div class="nav-row">
+          <button class="btn secondary back">← WSTECZ</button>
+          <button class="btn primary next">DALEJ →</button>
+        </div>
+      </section>
+
+      <section class="step" data-step="2">
+        <h2>CHOOSE YOUR VESSEL</h2>
+        <p>Wybierz bazowy pikselowy obrys. Za chwilę samodzielnie go pokolorujesz.</p>
+        <div id="templates" class="templates"></div>
+        <div id="step2Error" class="error"></div>
+        <div class="nav-row">
+          <button class="btn secondary back">← WSTECZ</button>
+          <button class="btn primary next">DALEJ: MALOWANIE →</button>
+        </div>
+      </section>
+
+      <section class="step" data-step="3">
+        <h2>CREATE YOUR AVATAR</h2>
+        <p>Klikaj lub przeciągaj po kwadracikach. Na telefonie możesz malować palcem.</p>
+        <div class="editor-layout">
+          <div class="canvas-card">
+            <canvas id="pixelCanvas" width="544" height="544" aria-label="Edytor pikselowej postaci"></canvas>
+          </div>
+          <aside class="tools-card">
+            <h3>PALETA</h3>
+            <div id="palette" class="palette"></div>
+            <label class="color-row">Własny kolor <input id="customColor" type="color" value="#f2c14e"></label>
+
+            <h3>NARZĘDZIA</h3>
+            <div class="tool-grid">
+              <button class="btn tiny tool active" data-tool="pencil">✏ MALUJ</button>
+              <button class="btn tiny secondary tool" data-tool="fill">🪣 WYPEŁNIJ</button>
+              <button class="btn tiny secondary tool" data-tool="eraser">🧽 GUMKA</button>
+              <button class="btn tiny secondary" id="undoBtn">↶ COFNIJ</button>
+              <button class="btn tiny secondary" id="redoBtn">↷ PONÓW</button>
+              <button class="btn tiny secondary" id="restoreOutlineBtn">👤 OBRYS</button>
+            </div>
+            <label class="check-row compact">
+              <input id="lockOutline" type="checkbox" checked>
+              <span>🔒 Chroń kontur postaci</span>
+            </label>
+            <div class="mini-preview">
+              <canvas id="miniAvatar" width="128" height="128"></canvas>
+            </div>
+          </aside>
+        </div>
+        <div class="nav-row">
+          <button class="btn secondary back">← WSTECZ</button>
+          <button class="btn primary next">DALEJ →</button>
+        </div>
+      </section>
+
+      <section class="step" data-step="4">
+        <h2>DEFINE YOUR HERO</h2>
+        <div class="two-col">
+          <div>
+            <label for="heroName">Imię bohatera</label>
+            <input id="heroName" maxlength="24" placeholder="np. Boberius">
+          </div>
+          <div>
+            <label for="heroTitle">Tytuł</label>
+            <input id="heroTitle" maxlength="40" placeholder="np. Pogromca Side Questów">
+            <button id="titleIdeaBtn" class="btn ghost tiny">🎲 PODPOWIEDZ TYTUŁ</button>
+            <div id="titleIdea" class="micro"></div>
+          </div>
+        </div>
+
+        <label for="heroClass">Klasa</label>
+        <select id="heroClass">
+          <option value="">— wybierz —</option>
+          <option>Wojownik</option><option>Mag</option><option>Łotrzyk</option><option>Łowca</option>
+          <option>Paladyn</option><option>Bard</option><option>Druid</option><option>Nekromanta</option>
+          <option>Barbarzyńca</option><option>Mnich</option><option>Warlock</option><option value="__other__">Inna…</option>
+        </select>
+        <div id="customClassWrap" class="hidden">
+          <label for="customClass">Własna klasa</label>
+          <input id="customClass" maxlength="40" placeholder="np. Goblin Excelowy">
+        </div>
+        <p class="micro">Klasa opisuje bohatera. Nie wpływa na jego przyszłe statystyki.</p>
+        <div id="step4Error" class="error"></div>
+        <div class="nav-row">
+          <button class="btn secondary back">← WSTECZ</button>
+          <button class="btn primary next">DALEJ →</button>
+        </div>
+      </section>
+
+      <section class="step" data-step="5">
+        <h2>EVERY HERO HAS A STORY</h2>
+        <p>Kim jest Twoja postać? Skąd pochodzi? Czego szuka? Jak trafiła na tę wyprawę? Możesz potraktować to poważnie albo absolutnie niepoważnie.</p>
+        <textarea id="lore" maxlength="500" placeholder="Napisz krótką historię postaci…"></textarea>
+        <div id="loreCounter" class="counter">0 / 500</div>
+        <div class="nav-row">
+          <button class="btn secondary back">← WSTECZ</button>
+          <button class="btn primary next">PODGLĄD →</button>
+        </div>
+      </section>
+
+      <section class="step" data-step="6">
+        <h2>CHARACTER PREVIEW</h2>
+        <div class="preview-card">
+          <canvas id="previewAvatar" width="256" height="256"></canvas>
+          <div class="preview-data">
+            <h2 id="previewName">???</h2>
+            <div id="previewTitle" class="gold italic"></div>
+            <div id="previewClass"></div>
+            <div class="lore-preview"><strong>LORE</strong><br><span id="previewLore"></span></div>
+            <div class="mystery-line">🔒 Pozostałe informacje o Twojej postaci zostaną odkryte podczas przygody.</div>
+          </div>
+        </div>
+        <div id="submitStatus" class="info-box hidden"></div>
+        <div class="nav-row">
+          <button class="btn secondary back">← EDYTUJ</button>
+          <button class="btn primary" id="confirmBtn">✓ ZATWIERDŹ POSTAĆ</button>
+        </div>
+      </section>
+
+      <section class="step" data-step="7">
+        <div class="complete">
+          <div class="eyebrow">QUEST ACCEPTED</div>
+          <h1>CHARACTER CREATED</h1>
+          <p><strong id="completeName"></strong>, Twoja postać została zaakceptowana.</p>
+          <div class="important-box">
+            <strong>📜 WAŻNE</strong><br>
+            Zachowaj swoje zaproszenie. Jeśli masz możliwość, <strong>wydrukuj je i zabierz ze sobą na imprezę</strong>. Może Ci się przydać podczas przygody.
+          </div>
+          <div class="invitation-preview-wrap"><canvas id="invitationPreview" width="620" height="877"></canvas></div>
+          <div class="nav-row centered">
+            <button class="btn primary" id="downloadInvitationBtn">📜 POBIERZ ZAPROSZENIE</button>
+            <button class="btn secondary" id="openInvitationBtn">📱 OTWÓRZ ZAPROSZENIE</button>
+          </div>
+          <p id="mailNotice" class="micro"></p>
+        </div>
+      </section>
+    </section>
+
+    <footer>Birthday Quest • Paula &amp; Hania</footer>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
